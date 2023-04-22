@@ -1,20 +1,22 @@
 Framework = {}
-TOMM = {}
 TOMM.CoreObject = nil
 TOMM.Math = {}
-TOMM.Framework = Config.Framework
 TOMM.Functions = {}
 TOMM.Callback = {}
 TOMM.Callback.Functions = {}
 TOMM.Callback.ServerCallbacks = {}
 
-if Config.Framework == "ESX" then
-    if Config.NewESX == true then
+exports('getObject', function()
+    return TOMM
+end)
+
+if TOMM.Framework == "ESX" then
+    if TOMM.NewESX == true then
         Framework = exports['es_extended']:getSharedObject()
     else
         TriggerEvent('esx:getSharedObject', function(obj) Framework = obj end)
     end
-elseif Config.Framework == "QBCore" then
+elseif TOMM.Framework == "QBCore" then
     Framework = exports['qb-core']:GetCoreObject()
 end
 
@@ -39,7 +41,7 @@ RegisterNetEvent('tomm_lib:Server:TriggerServerCallback', function(name, ...)
 end)
 
 TOMM.Functions.SpawnVehicle = function(model, coords, heading, Properties, cb)
-    if Config.Framework == "ESX" then
+    if TOMM.Framework == "ESX" then
         local veh_model = model
         Properties = Properties or {}
         local vector = type(coords) == "vector3" and coords or vec(coords.x, coords.y, coords.z)
@@ -90,8 +92,8 @@ TOMM.Functions.SpawnObject = function(model, coords, heading, cb)
 end
 
 TOMM.Functions.GetPlayers = function()
-    if Config.Framework == "ESX" then
-        if Config.NewESX == true then
+    if TOMM.Framework == "ESX" then
+        if TOMM.NewESX == true then
             return Framework.GetExtendedPlayers()
         else
             local temp = Framework.GetPlayers()
@@ -112,7 +114,7 @@ TOMM.Functions.GetPlayers = function()
 end
 
 TOMM.Functions.GetPlayerFromIdentifier = function(identifier)
-    if Config.Framework == "ESX" then
+    if TOMM.Framework == "ESX" then
         return Framework.GetPlayerFromIdentifier(identifier)
     else
         return Framework.Functions.GetPlayerByCitizenId(identifier)
@@ -120,7 +122,7 @@ TOMM.Functions.GetPlayerFromIdentifier = function(identifier)
 end
 
 TOMM.Functions.GetPlayerFromId = function(source)
-    if Config.Framework == "ESX" then
+    if TOMM.Framework == "ESX" then
         return Framework.GetPlayerFromId(source)
     else
 
@@ -171,6 +173,3 @@ TOMM.Math.GroupDigits = function(value)
 end
 
 
-exports('getObject', function()
-    return TOMM
-end)

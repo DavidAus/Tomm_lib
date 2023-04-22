@@ -1,5 +1,5 @@
-Config = {}
+TOMM = {}
 
-Config.Framework = "ESX" -- "ESX" or "QBCore"
+TOMM.Framework = "ESX" -- "ESX" or "QBCore"
 
-Config.NewESX = true -- TURE = export | false = TriggerEvent
+TOMM.NewESX = true -- TURE = export | false = TriggerEvent

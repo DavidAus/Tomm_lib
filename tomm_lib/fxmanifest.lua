@@ -6,7 +6,7 @@ fx_version 'adamant'
 game 'gta5'
 author 'Tomm'
 version '1.0.0'
-lua54 'yes'
+
 client_scripts {
     'config.lua',
     'client.lua'
@@ -15,8 +15,4 @@ client_scripts {
 server_scripts {
     'config.lua',
     'server.lua',
-}
-
-escrow_ignore {
-  'config.lua'
 }

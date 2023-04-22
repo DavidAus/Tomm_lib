@@ -1,6 +1,4 @@
 Framework = nil
-TOMM = {}
-TOMM.Framework = Config.Framework
 TOMM.CoreObject = nil
 TOMM.Functions = {}
 TOMM.Functions.UI = {}
@@ -11,8 +9,8 @@ TOMM.Callback.ClientCallbacks = {}
 TOMM.Math = {}
 
 Citizen.CreateThread(function()
-    if Config.Framework == "ESX" then
-        if Config.NewESX == true then
+    if TOMM.Framework == "ESX" then
+        if TOMM.NewESX == true then
             while Framework == nil do
                 Framework = exports['es_extended']:getSharedObject()
                 Citizen.Wait(1)
@@ -23,7 +21,7 @@ Citizen.CreateThread(function()
                 Citizen.Wait(1)
             end
         end
-    elseif Config.Framework == "QBCore" then
+    elseif TOMM.Framework == "QBCore" then
         while Framework == nil do
             Framework = exports['qb-core']:GetCoreObject()
             Citizen.Wait(1)
@@ -61,7 +59,7 @@ Citizen.CreateThread(function()
     end)
 
     TOMM.Functions.GetPlayerData = function()
-        if Config.Framework == "ESX" then
+        if TOMM.Framework == "ESX" then
             return Framework.GetPlayerData()
         else
             local temp = Framework.Functions.GetPlayerData()
@@ -71,7 +69,7 @@ Citizen.CreateThread(function()
     end
 
     TOMM.Functions.SpawnVehicle = function(model, coords, heading, cb, networked)
-        if Config.Framework == "ESX" then
+        if TOMM.Framework == "ESX" then
 
             local model = model
             local vector = type(coords) == "vector3" and coords or vec(coords.x, coords.y, coords.z)
@@ -137,7 +135,7 @@ Citizen.CreateThread(function()
     end
 
     TOMM.Functions.DeleteVehicle = function(vehicle)
-        if Config.Framework == "ESX" then
+        if TOMM.Framework == "ESX" then
             Framework.Game.DeleteVehicle(vehicle)
         else
             Framework.Functions.DeleteVehicle(vehicle)
@@ -145,7 +143,7 @@ Citizen.CreateThread(function()
     end
 
     TOMM.Functions.GetVehicleProperties = function(vehicle)
-        if Config.Framework == "ESX" then
+        if TOMM.Framework == "ESX" then
             return Framework.Game.GetVehicleProperties(vehicle)
         else
             return Framework.Functions.GetVehicleProperties(vehicle)
@@ -153,7 +151,7 @@ Citizen.CreateThread(function()
     end
 
     TOMM.Functions.SetVehicleProperties = function(vehicle, props)
-        if Config.Framework == "ESX" then
+        if TOMM.Framework == "ESX" then
             Framework.Game.SetVehicleProperties(vehicle, props)
         else
             Framework.Functions.SetVehicleProperties(vehicle, props)
@@ -166,7 +164,7 @@ Citizen.CreateThread(function()
 
     TOMM.Functions.IsSpawnPointClear = function(coords, maxDistance)
         local maxDistance = maxDistance or 5
-        if Config.Framework == "ESX" then
+        if TOMM.Framework == "ESX" then
             return Framework.Game.IsSpawnPointClear(coords, maxDistance)
         else
             local closestVehicle, distance = Framework.Functions.GetClosestVehicle(coords)
