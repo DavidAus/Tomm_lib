@@ -99,7 +99,7 @@ TOMM.Functions.GetPlayers = function()
             local temp = Framework.GetPlayers()
             local xPlayers = {}
             for i=1, #temp, 1 do
-                xPlayers[i] = TOMM.Functions.GetPlayerFromIdentifier(1)
+                xPlayers[i] = TOMM.Functions.GetPlayerFromIdentifier(i)
             end
             return xPlayers
         end

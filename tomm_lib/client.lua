@@ -7,8 +7,9 @@ TOMM.Callback.Functions = {}
 TOMM.Callback.ServerCallbacks = {}
 TOMM.Callback.ClientCallbacks = {}
 TOMM.Math = {}
-
+Loaded = false
 Citizen.CreateThread(function()
+    Loaded = false
     if TOMM.Framework == "ESX" then
         if TOMM.NewESX == true then
             while Framework == nil do
@@ -31,19 +32,6 @@ Citizen.CreateThread(function()
         TOMM.CoreObject = Framework
         Citizen.Wait(1)
     end
-
-
-    RegisterNetEvent("tomm_lib:playerLoaded")
-    AddEventHandler("tomm_lib:playerLoaded",function()
-    end)
-
-    RegisterNetEvent('esx:playerLoaded', function()
-        TriggerEvent("tomm_lib:playerLoaded")
-    end)
-
-    RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-        TriggerEvent("tomm_lib:playerLoaded")
-    end)
 
 
     TOMM.Callback.Functions.TriggerServerCallback = function(name, cb, ...)
@@ -206,11 +194,23 @@ Citizen.CreateThread(function()
 
         return left..(num:reverse():gsub('(%d%d%d)','%1' .. ","):reverse())..right
     end
+    Loaded = true
+end)
 
+RegisterNetEvent("tomm_lib:playerLoaded")
+AddEventHandler("tomm_lib:playerLoaded",function()
+end)
+
+RegisterNetEvent('esx:playerLoaded', function()
+    TriggerEvent("tomm_lib:playerLoaded")
+end)
+
+RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+    TriggerEvent("tomm_lib:playerLoaded")
 end)
 
 exports('getObject', function()
-    while TOMM == nil do
+    while Loaded == false do
         Wait(1)
     end
     return TOMM
